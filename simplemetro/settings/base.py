@@ -2,19 +2,11 @@
 import os
 from pathlib import Path
 
-import environ
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env()
-
-READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
-if READ_DOT_ENV_FILE:
-    env.read_env(str(BASE_DIR / '.env'))
-
 # General
-DEBUG = env.bool('DJANGO_DEBUG', False)
-SECRET_KEY = env('SECRET_KEY')
+DEBUG = os.environ['DJANGO_DEBUG']
+SECRET_KEY = os.environ['SECRET_KEY']
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -77,9 +69,9 @@ WSGI_APPLICATION = 'simplemetro.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': '',
         'PORT': '',
     }
