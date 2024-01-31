@@ -6,3 +6,43 @@
     margin: 0;
     padding: 0;
 }
+
+/* Metro brand */
+.line {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 75px;
+    color: white;
+    font-weight: bold;
+    font-size: 2.5em;
+    margin: 10px;
+}
+
+.line--red {
+    background: rgb(191, 13, 62);
+}
+
+.line--orange {
+    background: rgb(237, 139, 0);
+    color: black;
+}
+
+.line--blue {
+    background: rgb(0, 156, 222);
+}
+
+.line--green {
+    background: rgb(0, 177, 64);
+}
+
+.line--yellow {
+    background: rgb(255, 209, 0);
+    color: black;
+}
+
+.line--silver {
+    background: rgb(146, 157, 157);
+    color: black;
+}
