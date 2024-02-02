@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 
-from .utils import Metro
+from .api import Metro
 
 trains = Metro()
 class IndexView(TemplateView):
