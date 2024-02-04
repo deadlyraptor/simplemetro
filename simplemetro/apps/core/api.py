@@ -2,16 +2,6 @@ import os
 
 import requests
 
-
-def lines():
-    url = 'https://api.wmata.com/Rail.svc/json/jLines'
-    headers = {'api_key': os.environ['WMATA_KEY']}
-
-    response = requests.get(url, headers)
-    lines = response.json()['Lines']
-
-    return lines
-
 class Line:
     def __init__(self, 
                  line: str,
@@ -47,13 +37,20 @@ class Metro:
     4. ...which returns the Result object...
     5. ...which contains the API response in the data parameter
     """
+
+    BASE_PATH = {'Rail.svc'}
+    URLS = {
+        'lines': '/jLines',
+        'station_list': '/jStations'
+    }
+
     def __init__(self,
                  base_url: str = 'api.wmata.com',
                  api_key: str = os.environ['WMATA_KEY'],
                  api: str = 'Rail.svc',
                  response_format: str = 'json',
                 ):
-        self.url = 'https://{}/{}/{}/'.format(base_url, api, response_format)
+        self.url = f'https://{base_url}/{api}/{response_format}/'
         self._api_key = api_key
         self.api = api
 
@@ -65,5 +62,8 @@ class Metro:
         return Result(response.status_code, message=response.reason, data=data_out)
 
     def get_lines(self):
-        return self.get('jLines')
+        return self.get(self.URLS['lines'])
+    
+    def get_stations(self, line_code):
+        return self.get(f'jStations?LineCode={line_code}')
 

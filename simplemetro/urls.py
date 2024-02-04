@@ -6,7 +6,7 @@ from django.views import defaults as default_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('simplemetro.apps.core.urls'),)
+    path('', include('simplemetro.apps.core.urls')),
 ]
 
 if settings.DEBUG:
