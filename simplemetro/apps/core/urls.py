@@ -7,6 +7,6 @@ urlpatterns = [
     path(
         'line/<str:line_code>',
         views.StationListView.as_view(),
-        name='lines',
+        name='line',
     ),
 ]

@@ -38,19 +38,17 @@ class Result:
 
 
 class Metrorail:
-    BASE_PATH = {'Rail.svc'}
-    URLS = {'lines': '/jLines', 'stations': '/jStations'}
+    endpoints = {'lines': '/jLines', 'stations': '/jStations'}
 
     def __init__(
         self,
         base_url: str = 'api.wmata.com',
+        base_path: str = 'Rail.svc',
         api_key: str = os.environ['WMATA_KEY'],
-        api: str = 'Rail.svc',
         response_format: str = 'json',
     ):
-        self.url = f'https://{base_url}/{api}/{response_format}/'
+        self.url = f'https://{base_url}/{base_path}/{response_format}/'
         self._api_key = api_key
-        self.api = api
 
     def get(self, endpoint: str, params: Dict = None) -> Result:
         full_url = self.url + endpoint
@@ -60,7 +58,9 @@ class Metrorail:
         return Result(response.status_code, message=response.reason, data=data_out)
 
     def get_lines(self):
-        return self.get(self.URLS['lines'])
+        """Returns information about all rail lines"""
+        return self.get(self.endpoints['lines'])
 
     def get_stations(self, params):
-        return self.get(self.URLS['stations'], params=params)
+        """Returns a list of station informatiion"""
+        return self.get(self.endpoints['stations'], params=params)
