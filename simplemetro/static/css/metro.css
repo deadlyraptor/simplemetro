@@ -1,10 +1,23 @@
 /* || General Styles */
+:root {
+    --metro-blue: rgb(0, 156, 222);
+    --metro-green: rgb(0, 177, 64);
+    --metro-orange: rgb(237, 139, 0);
+    --metro-red: rgb(191, 13, 62);
+    --metro-silver: rgb(146, 157, 157);
+    --metro-yellow: rgb(255, 209, 0);
+}
+
 *,
 ::after,
 ::before {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+a {
+    text-decoration: none;
 }
 
 /* Metro brand */
@@ -20,29 +33,35 @@
     margin: 10px;
 }
 
-.line--red {
-    background: rgb(191, 13, 62);
+.line:hover,
+.line:focus {
+    opacity: 0.5;
 }
 
-.line--orange {
-    background: rgb(237, 139, 0);
-    color: black;
-}
 
 .line--blue {
-    background: rgb(0, 156, 222);
+    background: var(--metro-blue);
 }
 
 .line--green {
-    background: rgb(0, 177, 64);
+    background: var(--metro-green);
 }
 
-.line--yellow {
-    background: rgb(255, 209, 0);
+.line--red {
+    background: var(--metro-red);
+}
+
+.line--orange {
+    background: var(--metro-orange);
     color: black;
 }
 
 .line--silver {
-    background: rgb(146, 157, 157);
+    background: var(--metro-silver);
+    color: black;
+}
+
+.line--yellow {
+    background: var(--metro-yellow);
     color: black;
 }
