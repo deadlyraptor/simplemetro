@@ -20,7 +20,20 @@ a {
     text-decoration: none;
 }
 
-/* Metro brand */
+main {
+    width: 600px;
+    margin: auto;
+}
+
+footer {
+    margin-top: 1.5em;
+}
+
+/* Lines */
+.lines {
+    display: flex;
+}
+
 .line {
     width: 75px;
     height: 75px;

@@ -2,21 +2,12 @@
 {% load static %}
 {% block content %}
 
-<div>
-    <div>
-        <h1>Simple Metro</h1>
-        <p>A simple webapp that displays train times for the DC Metro.</p>
-    </div>
-    <div>
-        <h2>Lines</h2>
-        <ul>
-            {% for line in lines.Lines %}
-            <a href="{% url 'line' line_code=line.LineCode %}">
-                <li class="line line--{{line.DisplayName|lower}}">{{ line.LineCode }}</li>
-            </a>
-            {% endfor %}
-        </ul>
-    </div>
+<div class="lines">
+    {% for line in lines.Lines %}
+    <a href="{% url 'line' line_code=line.LineCode %}">
+        <div class="line line--{{line.DisplayName|lower}}">{{ line.LineCode }}</div>
+    </a>
+    {% endfor %}
 </div>
 
 {% endblock content %}
