@@ -1,6 +1,7 @@
 # Environment
 .venv
 .env
+*.toml
 
 # Python
 __pycache__/

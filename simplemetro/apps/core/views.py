@@ -1,8 +1,10 @@
 from django.views.generic import TemplateView
 
-from .api import Metro
+from .api import Metrorail
 
-trains = Metro()
+trains = Metrorail()
+
+
 class IndexView(TemplateView):
     template_name = 'core/index.html'
     extra_context = {'title': 'Simple Metro'}
@@ -11,12 +13,15 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['lines'] = trains.get_lines().data
         return context
-    
+
+
 class StationListView(TemplateView):
     template_name = 'core/station_list.html'
     extra_content = {'title': 'Stations'}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['stations'] = trains.get_stations(self.kwargs['line_code']).data
+        context['stations'] = trains.get_stations(
+            params={'LineCode': self.kwargs['line_code']}
+        ).data
         return context

@@ -1,24 +1,31 @@
 import os
+from typing import Dict
 
 import requests
 
+
 class Line:
-    def __init__(self, 
-                 line: str,
-                 display_name: str,
-                 start_station: str,
-                 end_station: str,
-                 internal_destination_one: str = '',
-                 internal_destination_two: str = ''):
+    def __init__(
+        self,
+        line: str,
+        display_name: str,
+        start_station: str,
+        end_station: str,
+        internal_destination_one: str = '',
+        internal_destination_two: str = '',
+    ):
         self.line = line
         self.display_name = display_name
         self.start_station = start_station
         self.end_station = end_station
         self.internal_destination_one = internal_destination_one
         self.internal_destination_two = internal_destination_two
-        
+
+
 class Result:
-    def __init__(self, status_code: int, message: str = '', data:dict[str, list] = None):
+    def __init__(
+        self, status_code: int, message: str = '', data: dict[str, list] = None
+    ):
         """Result returned from low-level RestAdapter
 
         :param status_code: standard HTTP status code
@@ -29,41 +36,31 @@ class Result:
         self.message = str(message)
         self.data = data if data else []
 
-class Metro:
-    """
-    1. Instantiate the Metro class
-    2. Call Metro.get_lines()...
-    3. ...which returns Metro.get()...
-    4. ...which returns the Result object...
-    5. ...which contains the API response in the data parameter
-    """
 
+class Metrorail:
     BASE_PATH = {'Rail.svc'}
-    URLS = {
-        'lines': '/jLines',
-        'station_list': '/jStations'
-    }
+    URLS = {'lines': '/jLines', 'stations': '/jStations'}
 
-    def __init__(self,
-                 base_url: str = 'api.wmata.com',
-                 api_key: str = os.environ['WMATA_KEY'],
-                 api: str = 'Rail.svc',
-                 response_format: str = 'json',
-                ):
+    def __init__(
+        self,
+        base_url: str = 'api.wmata.com',
+        api_key: str = os.environ['WMATA_KEY'],
+        api: str = 'Rail.svc',
+        response_format: str = 'json',
+    ):
         self.url = f'https://{base_url}/{api}/{response_format}/'
         self._api_key = api_key
         self.api = api
 
-    def get(self, endpoint: str) -> Result:
+    def get(self, endpoint: str, params: Dict = None) -> Result:
         full_url = self.url + endpoint
         headers = {'api_key': self._api_key}
-        response = requests.get(url=full_url, headers=headers)
+        response = requests.get(url=full_url, headers=headers, params=params)
         data_out = response.json()
         return Result(response.status_code, message=response.reason, data=data_out)
 
     def get_lines(self):
         return self.get(self.URLS['lines'])
-    
-    def get_stations(self, line_code):
-        return self.get(f'jStations?LineCode={line_code}')
 
+    def get_stations(self, params):
+        return self.get(self.URLS['stations'], params=params)
