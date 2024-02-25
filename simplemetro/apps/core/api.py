@@ -41,29 +41,24 @@ class Result:
 
 
 class Metrorail:
-    endpoints = {'lines': '/jLines', 'stations': '/jStations'}
+    urls = {
+        'Lines': 'https://api.wmata.com/Rail.svc/json/jLines',
+        'Stations': 'https://api.wmata.com/Rail.svc/json/jStations',
+    }
 
-    def __init__(
-        self,
-        base_url: str = 'api.wmata.com',
-        base_path: str = 'Rail.svc',
-        api_key: str = os.environ['WMATA_KEY'],
-        response_format: str = 'json',
-    ):
-        self.url = f'https://{base_url}/{base_path}/{response_format}/'
+    def __init__(self, api_key: str = os.environ['WMATA_KEY']):
         self._api_key = api_key
 
-    def get(self, endpoint: str, params: Dict = None) -> Result:
-        full_url = self.url + endpoint
+    def get(self, url: str, params: Dict = None) -> Result:
         headers = {'api_key': self._api_key}
-        response = requests.get(url=full_url, headers=headers, params=params)
+        response = requests.get(url=url, headers=headers, params=params)
         data = response.json()
         return Result(response.status_code, message=response.reason, data=data)
 
     def get_lines(self):
         """Returns information about all rail lines"""
-        return self.get(self.endpoints['lines'])
+        return self.get(self.urls['Lines'])
 
     def get_stations(self, params):
         """Returns a list of station information"""
-        return self.get(self.endpoints['stations'], params=params)
+        return self.get(self.urls['Stations'], params=params)
