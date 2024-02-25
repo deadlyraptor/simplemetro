@@ -4,7 +4,7 @@
 
 <div class="lines">
     {% for line in lines.Lines %}
-    <a href="{% url 'line' line_code=line.LineCode %}">
+    <a href="{% url 'line' line_code=line.LineCode %}" class="line--link">
         <div class="line line--{{line.DisplayName|lower}}">{{ line.LineCode }}</div>
     </a>
     {% endfor %}

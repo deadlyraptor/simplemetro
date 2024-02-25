@@ -63,11 +63,10 @@ a {
     margin: 10px;
 }
 
-.line:hover,
-.line:focus {
+.line--link:hover,
+.line--link:focus {
     opacity: 0.5;
 }
-
 
 .line--blue {
     background: var(--metro-blue);
@@ -94,4 +93,61 @@ a {
 .line--yellow {
     background: var(--metro-yellow);
     color: black;
+}
+
+/* Stations */
+.station {
+    display: flex;
+    margin-bottom: 1.5em;
+    /* border: 2px solid red; */
+}
+
+.station__map {
+    flex-shrink: 0;
+    position: relative;
+    width: 20px;
+}
+
+.station__line--bl {
+    background-color: var(--metro-blue);
+}
+
+.station__line--gr {
+    background-color: var(--metro-green);
+}
+
+.station__line--rd {
+    background-color: var(--metro-red);
+}
+
+.station__line--or {
+    background-color: var(--metro-orange);
+}
+
+.station__line--sv {
+    background-color: var(--metro-silver);
+}
+
+.station__line--yl {
+    background-color: var(--metro-yellow);
+}
+
+.station__line {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 8px;
+    width: 4px;
+    height: 42px;
+}
+
+.station__point {
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    left: 5px;
+    top: 5px;
 }

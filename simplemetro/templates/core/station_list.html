@@ -3,10 +3,18 @@
 {% block content %}
 
 <div>
-    <h1>{{ display_name }}</h1>
-    <div>
+    <div class="line line--{{line_code|lower}}">{{line_code}}</div>
+    <div class="stations">
         {% for station in stations.Stations %}
-        <div>{{station.Name }}</div>
+        <a href="#">
+            <div class="station">
+                <div class="station__map">
+                    <div class="station__line station__line--{{line_code|lower}}"></div>
+                    <div class="station__point"></div>
+                </div>
+                <div class="station__name">{{station.Name }}</div>
+            </div>
+        </a>
         {% endfor %}
     </div>
 </div>

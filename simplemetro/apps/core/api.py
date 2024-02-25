@@ -24,7 +24,10 @@ class Line:
 
 class Result:
     def __init__(
-        self, status_code: int, message: str = '', data: dict[str, list] = None
+        self,
+        status_code: int,
+        message: str = '',
+        data: dict[str, list] = None,
     ):
         """Result returned from low-level RestAdapter
 
@@ -54,13 +57,13 @@ class Metrorail:
         full_url = self.url + endpoint
         headers = {'api_key': self._api_key}
         response = requests.get(url=full_url, headers=headers, params=params)
-        data_out = response.json()
-        return Result(response.status_code, message=response.reason, data=data_out)
+        data = response.json()
+        return Result(response.status_code, message=response.reason, data=data)
 
     def get_lines(self):
         """Returns information about all rail lines"""
         return self.get(self.endpoints['lines'])
 
     def get_stations(self, params):
-        """Returns a list of station informatiion"""
+        """Returns a list of station information"""
         return self.get(self.endpoints['stations'], params=params)
